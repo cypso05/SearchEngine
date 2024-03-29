@@ -8,7 +8,7 @@ import requests # To make HTTP requests
 app = Flask(__name__) 
 
 # API keys for making requests to search API
-RAPID_API_KEY = "9d01b0e0fcmsh697f6ab0ed8b363p1b02c2jsn2de91ea25e7e" 
+RAPID_API_KEY = "YOUR UNIQUE API KEY GOES HERE " 
 RAPID_API_HOST = "real-time-web-search.p.rapidapi.com"
 
 # Route for the home page
