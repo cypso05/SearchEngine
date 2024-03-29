@@ -1,0 +1,137 @@
+<!-- HTML doctype -->
+<!DOCTYPE html>
+<!-- HTML page -->
+<html lang="en">
+<head>
+     <!-- Character encoding -->
+    <meta charset="UTF-8">
+      <!-- Viewport for responsive design -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Engine</title>
+    <style>
+        /* CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+          /* Layout and styles for headings, form, etc */
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px 0 0 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #searchResults {
+            margin-top: 20px;
+        }
+
+        .search-result {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .search-result h2 {
+            margin-top: 0;
+        }
+
+        .search-result p {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+     <!-- Main content container -->
+    <div class="container">
+        <h1>Search Engine</h1>
+         <!-- Search form -->
+            <form id="searchForm">
+            <input type="text" id="searchInput" name="query" placeholder="Enter your search query...">
+            <button type="submit">Search</button>
+        </form>
+        <div id="searchResults"></div>
+    </div>
+
+    <script>
+        // JavaScript code
+         // Add submit event listener to form
+        document.getElementById('searchForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            // Get search query  
+
+            var query = document.getElementById('searchInput').value;
+
+            // Send a POST request to the Flask app with the search query
+            fetch('/search', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'query=' + encodeURIComponent(query)
+            })
+             // Handle response
+            .then(response => response.json())
+            .then(data => {
+                // Clear previous search results
+                document.getElementById('searchResults').innerHTML = '';
+
+                // Display the search results on the page
+                data.data.forEach(result => {
+                      // Create result HTML
+                    var resultHtml = `
+                        <div class="search-result">
+                            <h2><a href="${result.url}" target="_blank">${result.title}</a></h2>
+                            <p>${result.snippet}</p>
+                            <p><strong>Domain:</strong> ${result.domain}</p>
+                        </div>
+                    `;
+                     // Add result HTML to page
+                    document.getElementById('searchResults').innerHTML += resultHtml;
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
