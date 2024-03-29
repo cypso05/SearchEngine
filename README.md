@@ -1,6 +1,6 @@
 # SearchEngine
 This is a Search Engine developed from rapidAPI database. it incorporates python, javascript and HTML5 to provide real time results. 
-to use this application, navigate to  "real-time-web-search.p.rapidapi.com", signup and suscribe to get your unique API key. replace the portion of the script with your API key and you are ready to test the application. 
+To use this application, navigate to  "real-time-web-search.p.rapidapi.com", signup and suscribe to get your unique API key. replace the portion of the script with your API key and you are ready to test the application. 
 # app.py
 This Python code implements a simple web search application using the Flask framework.
 
